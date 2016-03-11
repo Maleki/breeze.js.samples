@@ -13,7 +13,9 @@
         //markAllCompleted - see addComputed()
         newTodoDescription: ko.observable(""),
         purge: purge,
-        reset: reset
+        reset: reset,
+        policy: ko.observable(),
+        removeItem: removeItem
     };
 
     var suspendSave = false;
@@ -28,9 +30,10 @@
         vm.includeArchived.subscribe(getTodos);
         addComputeds();
         getTodos();
-
+        getPolicy();
         // Listen for property change of ANY entity so we can (optionally) save
-        dataservice.addPropertyChangeHandler(propertyChanged);
+        // JCC disabling for this test.
+        //dataservice.addPropertyChangeHandler(propertyChanged);
     }
 
     function addComputeds() {
@@ -171,5 +174,26 @@
         }
         // Decided not to save; return resolved promise w/ no result
         return Q(false);
+    }
+
+    // my test changes
+    function getPolicy() {
+        dataservice.getPolicies()
+            .then(querySucceeded)
+            .fail(queryFailed);
+        
+        function querySucceeded(data) {
+            vm.policy(data.results[0]);
+        }
+        function queryFailed(error) {
+            logger.error(error.message, "Query failed");
+        }
+    }
+    
+    function removeItem(data, event) {
+        data.entityAspect.setDeleted();
+        //data.entityAspect.rejectChanges();
+        dataservice.manager.rejectChanges();
+        return false;
     }
 });

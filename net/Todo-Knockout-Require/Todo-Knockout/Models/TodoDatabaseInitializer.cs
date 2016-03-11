@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 
 namespace Todo.Models
@@ -28,7 +29,49 @@ namespace Todo.Models
            };
 
             Array.ForEach(todos, t => context.Todos.Add(t));
-
+            
+            Policy policy = new Policy
+            {
+                Name = "Pol1",
+                EffDate = DateTime.Now,
+                Vehicles = new List<Vehicle>{
+                    new Vehicle
+                        {
+                            Name = "Ford",
+                            KmOneWay = 100,
+                            Coverages = new List<Coverage>{
+                                new Coverage
+                                    {
+                                        Name = "Coverage1",
+                                        Premium = 100
+                                    },
+                                    new Coverage
+                                    {
+                                        Name = "Coverage2",
+                                        Premium = 200
+                                    }
+                            }
+                        },
+                        new Vehicle
+                        {
+                            Name = "Toyota",
+                            KmOneWay = 222,
+                            Coverages = new List<Coverage>{
+                                new Coverage
+                                    {
+                                        Name = "Coverage3",
+                                        Premium = 111
+                                    },
+                                    new Coverage
+                                    {
+                                        Name = "Coverage3",
+                                        Premium = 222
+                                    }
+                            }
+                        }
+                }
+            };
+            context.Policies.Add(policy);
             context.SaveChanges(); // Save 'em
         }
 

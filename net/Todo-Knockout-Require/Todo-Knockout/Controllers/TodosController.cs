@@ -30,6 +30,14 @@ namespace Todo.Controllers {
             return _contextProvider.Metadata();
         }
 
+        [Route("Policies")]
+        [HttpGet]
+        public IQueryable<Policy> Policies()
+        {
+            return _contextProvider.Context.Policies
+                .Include("Vehicles")
+                .Include("Vehicles.Coverages");
+        }
         // ~/breeze/todos/Todos
         // ~/breeze/todos/Todos?$filter=IsArchived eq false&$orderby=CreatedAt  
         [HttpGet]

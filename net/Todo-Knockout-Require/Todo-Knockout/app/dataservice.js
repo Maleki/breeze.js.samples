@@ -26,7 +26,9 @@ define(['jquery', 'ko', 'breeze', 'logger', 'breeze.savequeuing'], function ($, 
         hasChanges: hasChanges,
         purge: purge,
         reset: reset,
-        saveChanges: saveChanges
+        saveChanges: saveChanges,
+        getPolicies: getPolicies,
+        manager: manager
     };
 
     /*** implementation details ***/
@@ -159,4 +161,10 @@ define(['jquery', 'ko', 'breeze', 'logger', 'breeze.savequeuing'], function ($, 
     }
     //#endregion
 
+    function getPolicies() {
+        var query = breeze.EntityQuery
+            .from("Policies")
+            .expand("Vehicles, Vehicles.Coverages");
+        return manager.executeQuery(query);
+    }
 });
