@@ -4,8 +4,8 @@
         paths: {
             'breeze':             '../Scripts/breeze.debug',
             'breeze.savequeuing': '../Scripts/breeze.savequeuing',
-            'jquery':             '../Scripts/jquery-1.8.3.min',
-            'ko':                 '../Scripts/knockout-2.2.0',
+            'jquery':             '../Scripts/jquery-2.2.1.min',
+            'ko':                 '../Scripts/knockout-3.4.0',
             'Q':                  '../Scripts/q.min',
             'text':               '../Scripts/text',
             'toastr':             '../Scripts/toastr',
